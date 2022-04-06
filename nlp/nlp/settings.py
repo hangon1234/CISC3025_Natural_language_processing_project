@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'named_entity_recognition.apps.NamedEntityRecognitionConfig',
+    'text_classification.apps.TextClassificationConfig',
+    'main.apps.MainConfig',
 ]
 
 MIDDLEWARE = [
