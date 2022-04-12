@@ -1,4 +1,13 @@
 {% extends "core/form.html" %}
 {% block title %}Named Entity Recognition {% endblock %}
-{% block jumbotron_title %}Named Entity Recognition{% endblock %}
-{% block jumbotron_passage %}Maximum entropy named entity recognition model{% endblock %}
+{% block description %}
+    <div class="mb-4">
+        <div class="container-fluid">
+            <h1 class="display-5 fw-bold mb-5">Named entity recognition</h1>
+            <p class="col-md-8 fs-4">
+                Maximum entropy named entity recognition model
+            </p>
+        </div>
+    </div>
+{% endblock %}
+{% block form_action_url %}{% url "named_entity_recognition:index" %}{% endblock %}

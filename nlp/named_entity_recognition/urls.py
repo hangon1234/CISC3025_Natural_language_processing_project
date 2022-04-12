@@ -1,9 +1,9 @@
 from django.urls import path
 
-from . import views
+from named_entity_recognition.views import NERView
 
 app_name = 'named_entity_recognition'
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', NERView.as_view(), name='index'),
 ]
