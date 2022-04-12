@@ -1,15 +1,6 @@
 {% extends "core/base.html" %}
-{% block header %}
-    <div class="container py-4">
-        <header class="pb-3 mb-4 border-bottom">
-            <a href="{% url "core:index" %}" class="d-flex align-items-center text-dark text-decoration-none">
-                <i style="width:40px;" class="bi bi-arrow-left"></i>
-                <span class="fs-4">Main</span>
-            </a>
-        </header>
-    </div>
-{% endblock %}
 {% block body %}
+    {% include "core/header.html" %}
     <div class="container">
         <div class="p-5 mb-4 bg-light rounded-3">
             <div class="container-fluid py-5">
@@ -26,7 +17,6 @@
                           class="form-control"></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
-
         </form>
     </div>
 {% endblock %}
