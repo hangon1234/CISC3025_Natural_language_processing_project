@@ -26,5 +26,6 @@ urlpatterns = [
     path('text_classification', include('text_classification.urls',
                                         namespace="text_classification")),
 
-    path('', TemplateView.as_view(template_name='main.html')),
+    path('', include('core.urls',
+                     namespace="core")),
 ]
