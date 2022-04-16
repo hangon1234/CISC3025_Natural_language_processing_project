@@ -36,14 +36,60 @@ class MEMM():
         features = {}
         """ Baseline Features """
         current_word = words[position]
-        features['has_(%s)' % current_word] = 1
+        features[f'has_{current_word}'] = 1
         features['prev_label'] = previous_label
         if current_word[0].isupper():
             features['Titlecase'] = 1
 
-        #===== TODO: Add your features here =======#
+        # Baseline score
+        # f_score = 0.8715
+        # accuracy = 0.9641
+        # recall = 0.7143
+        # precision = 0.9642
 
-        #...
+
+        #===== TODO: Add your features here =======#
+        # When whole word is capitalized
+        if current_word == current_word.upper():
+            features['ALLCAP'] = 1
+
+        # Score after added ALLCAP
+        # f_score = 0.8765
+        # accuracy = 0.9646
+        # recall = 0.7140
+        # precision = 0.9747
+
+        # Previous word
+        if position > 0:
+            features[f"prev_word_{words[position-1]}"] = 1
+
+        # Score after added PREVWORD
+        # f_score = 0.9086
+        # accuracy = 0.9718
+        # recall = 0.7828
+        # precision = 0.9633
+        # Previous two word
+
+        if position > 1:
+            features[f"prev_two_word{words[position-2]}"] = 1
+
+        # Score after added previous two word
+        # This feature worsen model
+        # f_score = 0.8978
+        # accuracy = 0.9692
+        # recall = 0.7584
+        # precision = 0.9650
+
+        # # Next word
+        if position + 1 != len(words):
+            features[f"next_word_{words[position+1]}"] = 1
+
+        # Score after added NEXTWORD
+        # This feature worsen model
+        # f_score = 0.9037
+        # accuracy = 0.9709
+        # recall = 0.7778
+        # precision = 0.9590
 
         #=============== TODO: Done ================#
         return features
