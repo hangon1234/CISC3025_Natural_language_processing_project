@@ -70,8 +70,8 @@ class MEMM():
         # precision = 0.9633
         # Previous two word
 
-        if position > 1:
-            features[f"prev_two_word{words[position-2]}"] = 1
+        # if position > 1:
+        #     features[f"prev_two_word{words[position-2]}"] = 1
 
         # Score after added previous two word
         # This feature worsen model
@@ -81,8 +81,8 @@ class MEMM():
         # precision = 0.9650
 
         # # Next word
-        if position + 1 != len(words):
-            features[f"next_word_{words[position+1]}"] = 1
+        # if position + 1 != len(words):
+        #     features[f"next_word_{words[position+1]}"] = 1
 
         # Score after added NEXTWORD
         # This feature worsen model
