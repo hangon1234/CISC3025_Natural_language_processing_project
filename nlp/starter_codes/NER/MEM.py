@@ -141,6 +141,7 @@ class MEMM():
         self.load_model()
 
         train_words, train_labels = self.load_data(self.train_path)
+
         for word in words:
             if any([x == word[-1] for x in ['.', ',', ';']]):
                 word = word[:-1]
