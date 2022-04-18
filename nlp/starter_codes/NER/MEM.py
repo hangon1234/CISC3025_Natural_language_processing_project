@@ -54,44 +54,44 @@ class MEMM():
             features['ALLCAP'] = 1
 
         # Score after added ALLCAP
-        # f_score = 0.8765
-        # accuracy = 0.9646
-        # recall = 0.7140
-        # precision = 0.9747
+        # f_score = 0.8783
+        # accuracy = 0.9647
+        # recall = 0.7138
+        # precision = 0.9787
 
         # Previous word
         if position > 0:
             features[f"prev_word_{words[position-1]}"] = 1
 
         # Score after added PREVWORD
-        # f_score = 0.9086
-        # accuracy = 0.9718
-        # recall = 0.7828
-        # precision = 0.9633
+        # f_score = 0.9021
+        # accuracy = 0.9704
+        # recall = 0.7722
+        # precision = 0.9607
 
         # If camelcase
         if [x.isupper for x in current_word].count(True) > 1:
             features["camel_case"] = 1
 
         # Score after added camelcase
-        # f_score = 0.9032
-        # accuracy = 0.9712
-        # recall = 0.7828
-        # precision = 0.9546
+        # f_score = 0.9021
+        # accuracy = 0.9704
+        # recall = 0.7722
+        # precision = 0.9607
 
         # if contains hyphen
-        if '-' in current_word:
-            features["hyphen"] = 1
+        # if '-' in current_word:
+        #     features["hyphen"] = 1
 
         # if underscore
-        if '_' in current_word:
-            features["underscore"] = 1
+        # if '_' in current_word:
+        #     features["underscore"] = 1
 
         # After adding underscore and hyphen
-        # f_score = 0.9032
-        # accuracy = 0.9712
-        # recall = 0.7828
-        # precision = 0.9546
+        # f_score = 0.9013
+        # accuracy = 0.9703
+        # recall = 0.7710
+        # precision = 0.9603
 
         # Previous two word
         # if position > 1:
@@ -99,12 +99,12 @@ class MEMM():
 
         # Score after added previous two word
         # This feature worsen model
-        # f_score = 0.8978
-        # accuracy = 0.9692
-        # recall = 0.7584
-        # precision = 0.9650
+        # f_score = 0.8867
+        # accuracy = 0.9671
+        # recall = 0.7429
+        # precision = 0.9599
 
-        # # Next word
+        # Next word
         # if position + 1 != len(words):
         #     features[f"next_word_{words[position+1]}"] = 1
 
