@@ -160,3 +160,26 @@ class MEMM():
     def load_model(self):
         with open('../model.pkl', 'rb') as f:
             self.classifier = pickle.load(f)
+
+    def classify(self, sentence):
+        words = sentence.split()
+        labels = list()
+        self.load_model()
+
+        train_words, train_labels = self.load_data(self.train_path)
+        for word in words:
+            if any([x == word[-1] for x in ['.', ',', ';']]):
+                word = word[:-1]
+            if word in train_words:
+                labels.append(train_labels[train_words.index(word)])
+            else:
+                labels.append("O")
+
+        previous_labels = ["O"] + labels
+        print(words)
+        print(labels)
+        features = [self.features(words, previous_labels[i], i)
+                    for i in range(len(words))]
+        print(features)
+        results = [self.classifier.classify(n) for n in features]
+        return results
