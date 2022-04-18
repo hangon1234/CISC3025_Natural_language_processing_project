@@ -17,8 +17,8 @@ import pickle
 
 class MEMM():
     def __init__(self):
-        self.train_path = "../data/train"
-        self.dev_path = "../data/dev"
+        self.train_path = "./starter_codes/data/train"
+        self.dev_path = "./starter_codes/data/dev"
         self.beta = 0
         self.max_iter = 0
         self.classifier = None
@@ -50,7 +50,7 @@ class MEMM():
 
         #===== TODO: Add your features here =======#
         # When whole word is capitalized
-        if current_word == current_word.upper():
+        if current_word.isupper():
             features['ALLCAP'] = 1
 
         # Score after added ALLCAP
@@ -68,8 +68,32 @@ class MEMM():
         # accuracy = 0.9718
         # recall = 0.7828
         # precision = 0.9633
-        # Previous two word
 
+        # If camelcase
+        if [x.isupper for x in current_word].count(True) > 1:
+            features["camel_case"] = 1
+
+        # Score after added camelcase
+        # f_score = 0.9032
+        # accuracy = 0.9712
+        # recall = 0.7828
+        # precision = 0.9546
+
+        # if contains hyphen
+        if '-' in current_word:
+            features["hyphen"] = 1
+
+        # if underscore
+        if '_' in current_word:
+            features["underscore"] = 1
+
+        # After adding underscore and hyphen
+        # f_score = 0.9032
+        # accuracy = 0.9712
+        # recall = 0.7828
+        # precision = 0.9546
+
+        # Previous two word
         # if position > 1:
         #     features[f"prev_two_word{words[position-2]}"] = 1
 
@@ -151,11 +175,9 @@ class MEMM():
                 labels.append("O")
 
         previous_labels = ["O"] + labels
-        print(words)
-        print(labels)
         features = [self.features(words, previous_labels[i], i)
                     for i in range(len(words))]
-        print(features)
+
         results = [self.classifier.classify(n) for n in features]
         return results
 
@@ -178,9 +200,9 @@ class MEMM():
             print(fmt % (word, pdist.prob('PERSON'), pdist.prob('O')))
 
     def dump_model(self):
-        with open('../model.pkl', 'wb') as f:
+        with open('./starter_codes/model.pkl', 'wb') as f:
             pickle.dump(self.classifier, f)
 
     def load_model(self):
-        with open('../model.pkl', 'rb') as f:
+        with open('starter_codes/model.pkl', 'rb') as f:
             self.classifier = pickle.load(f)
