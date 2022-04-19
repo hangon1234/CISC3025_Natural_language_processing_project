@@ -73,8 +73,8 @@ class MEMM():
         # precision = 0.9649
 
         # Previous word
-        if position > 0:
-            features[f"prev_word_{words[position-1]}"] = 1
+        # if position > 0:
+        #     features[f"prev_word_{words[position-1]}"] = 1
 
         # Score after added PREVWORD
         # f_score = 0.9021
