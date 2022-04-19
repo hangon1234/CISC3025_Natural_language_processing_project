@@ -183,7 +183,10 @@ class MEMM():
             if word in train_words:
                 labels.append(train_labels[train_words.index(word)])
             else:
-                labels.append("O")
+                if word in NAMES:
+                    labels.append("PERSON")
+                else:
+                    labels.append("O")
 
         previous_labels = ["O"] + labels
         features = [self.features(words, previous_labels[i], i)
