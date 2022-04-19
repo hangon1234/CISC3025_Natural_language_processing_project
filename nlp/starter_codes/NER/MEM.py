@@ -13,7 +13,10 @@ from sklearn.metrics import (accuracy_score, fbeta_score, precision_score,
                              recall_score)
 import os
 import pickle
+from nltk.tokenize import word_tokenize
+from nltk.corpus import names
 
+NAMES = names.words()
 
 class MEMM():
     def __init__(self):
@@ -58,6 +61,16 @@ class MEMM():
         # accuracy = 0.9647
         # recall = 0.7138
         # precision = 0.9787
+
+        # Using NLTK Names corpus
+        if current_word in NAMES:
+            features["name"] = 1
+
+        # Score after added name
+        # f_score = 0.9172
+        # accuracy = 0.9739
+        # recall = 0.8003
+        # precision = 0.9649
 
         # Previous word
         if position > 0:
@@ -159,16 +172,14 @@ class MEMM():
 
         return True
 
-    def classify(self, sentence):
-        words = sentence.split()
-        labels = list()
+    def predict_sentence(self, sentence):
         self.load_model()
-
         train_words, train_labels = self.load_data(self.train_path)
 
+        words = word_tokenize(sentence)
+        labels = list()
+
         for word in words:
-            if any([x == word[-1] for x in ['.', ',', ';']]):
-                word = word[:-1]
             if word in train_words:
                 labels.append(train_labels[train_words.index(word)])
             else:

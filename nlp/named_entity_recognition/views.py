@@ -11,7 +11,7 @@ class NERView(View):
         textarea = request.POST['textarea']
         classifier = MEMM()
 
-        result = classifier.classify(textarea)
+        result = classifier.predict_sentence(textarea)
         words = textarea.split()
 
         for i, word in enumerate(words):
