@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'named_entity_recognition.apps.NamedEntityRecognitionConfig',
-    'text_classification.apps.TextClassificationConfig',
     'core.apps.CoreConfig',
 ]
 

@@ -23,9 +23,6 @@ urlpatterns = [
     path('named_entity_recognition', include('named_entity_recognition.urls',
                                              namespace="named_entity_recognition")),
 
-    path('text_classification', include('text_classification.urls',
-                                        namespace="text_classification")),
-
     path('', include('core.urls',
                      namespace="core")),
 ]
