@@ -14,9 +14,10 @@ from sklearn.metrics import (accuracy_score, fbeta_score, precision_score,
 import os
 import pickle
 from nltk.tokenize import word_tokenize
-from nltk.corpus import names
+from nltk.corpus import names, brown
 
-NAMES = names.words()
+NAMES = set(names.words())
+BROWN = set(brown.words())
 
 class MEMM():
     def __init__(self):
@@ -54,43 +55,22 @@ class MEMM():
         #===== TODO: Add your features here =======#
         # When whole word is capitalized
         if current_word.isupper():
-            features['ALLCAP'] = 1
+            features['current_allcap'] = 1
 
-        # Score after added ALLCAP
-        # f_score = 0.8783
-        # accuracy = 0.9647
-        # recall = 0.7138
-        # precision = 0.9787
+        # if current_word.islower():
+        #     features['current_lower'] = 1
 
         # Using NLTK Names corpus
         if current_word in NAMES:
             features["name"] = 1
 
-        # Score after added name
-        # f_score = 0.9172
-        # accuracy = 0.9739
-        # recall = 0.8003
-        # precision = 0.9649
-
         # Previous word
         # if position > 0:
         #     features[f"prev_word_{words[position-1]}"] = 1
 
-        # Score after added PREVWORD
-        # f_score = 0.9021
-        # accuracy = 0.9704
-        # recall = 0.7722
-        # precision = 0.9607
-
         # If camelcase
-        if [x.isupper for x in current_word].count(True) > 1:
-            features["camel_case"] = 1
-
-        # Score after added camelcase
-        # f_score = 0.9021
-        # accuracy = 0.9704
-        # recall = 0.7722
-        # precision = 0.9607
+        # if [x.isupper for x in current_word].count(True) > 1:
+        #     features["camel_case"] = 1
 
         # if contains hyphen
         # if '-' in current_word:
@@ -100,33 +80,13 @@ class MEMM():
         # if '_' in current_word:
         #     features["underscore"] = 1
 
-        # After adding underscore and hyphen
-        # f_score = 0.9013
-        # accuracy = 0.9703
-        # recall = 0.7710
-        # precision = 0.9603
-
         # Previous two word
         # if position > 1:
         #     features[f"prev_two_word{words[position-2]}"] = 1
 
-        # Score after added previous two word
-        # This feature worsen model
-        # f_score = 0.8867
-        # accuracy = 0.9671
-        # recall = 0.7429
-        # precision = 0.9599
-
         # Next word
         # if position + 1 != len(words):
         #     features[f"next_word_{words[position+1]}"] = 1
-
-        # Score after added NEXTWORD
-        # This feature worsen model
-        # f_score = 0.9037
-        # accuracy = 0.9709
-        # recall = 0.7778
-        # precision = 0.9590
 
         #=============== TODO: Done ================#
         return features
