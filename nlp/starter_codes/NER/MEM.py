@@ -7,6 +7,10 @@
 # Created Date : April 4th 2020, 17:45:05
 # Last Modified: April 4th 2020, 17:45:05
 # --------------------------------------------------
+import nltk
+nltk.download('names')
+nltk.download('brown')
+nltk.download('punkt')
 
 from nltk.classify.maxent import MaxentClassifier
 from sklearn.metrics import (accuracy_score, fbeta_score, precision_score,
