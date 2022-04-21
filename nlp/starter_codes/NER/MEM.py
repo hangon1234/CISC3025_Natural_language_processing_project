@@ -134,25 +134,15 @@ class MEMM():
 
     def predict_sentence(self, sentence):
         self.load_model()
-        train_words, train_labels = self.load_data(self.train_path)
-
         words = word_tokenize(sentence)
-        labels = list()
-
-        for word in words:
-            if word in train_words:
-                labels.append(train_labels[train_words.index(word)])
-            else:
-                if word in NAMES:
-                    labels.append("PERSON")
-                else:
-                    labels.append("O")
+        labels = ["O"] + (["O"] * len(words))
 
         previous_labels = ["O"] + labels
         features = [self.features(words, previous_labels[i], i)
                     for i in range(len(words))]
 
         results = [self.classifier.classify(n) for n in features]
+
         return results
 
     def show_samples(self, bound):
