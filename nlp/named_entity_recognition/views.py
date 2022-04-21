@@ -14,6 +14,8 @@ class NERView(View):
         result = classifier.predict_sentence(textarea)
         words = textarea.split()
 
+        tags = result.copy()
+
         for i, word in enumerate(words):
             if result[i] == "PERSON":
                 words[i] = f"<mark class='text-danger'>{word}</mark>"
@@ -22,4 +24,5 @@ class NERView(View):
 
         return render(request, "named_entity_recognition/ner_result.html",
                       {"classification_result": classification_result,
-                       "textarea_input": textarea})
+                       "textarea_input": textarea,
+                       "tags": tags})
