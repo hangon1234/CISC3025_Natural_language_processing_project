@@ -135,14 +135,13 @@ class MEMM():
     def predict_sentence(self, sentence):
         self.load_model()
         words = word_tokenize(sentence)
-        labels = ["O"] + (["O"] * len(words))
+        labels = ["O"] * len(words)
 
         previous_labels = ["O"] + labels
         features = [self.features(words, previous_labels[i], i)
                     for i in range(len(words))]
 
         results = [self.classifier.classify(n) for n in features]
-
         return words, results
 
     def show_samples(self, bound):
