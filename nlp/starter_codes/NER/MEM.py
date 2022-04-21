@@ -143,7 +143,7 @@ class MEMM():
 
         results = [self.classifier.classify(n) for n in features]
 
-        return results
+        return words, results
 
     def show_samples(self, bound):
         """Show some sample probability distributions.
