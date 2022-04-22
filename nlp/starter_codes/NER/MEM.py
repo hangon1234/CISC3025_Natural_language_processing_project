@@ -163,7 +163,7 @@ class MEMM():
         pdists = self.classifier.prob_classify_many(features[m:n])
 
         print('  Words          P(PERSON)  P(O)\n' + '-' * 40)
-        for (word, label, pdist) in list(zip(words, labels, pdists))[m:n]:
+        for (word, label, pdist) in list(zip(words[m:n], labels[m:n], pdists)):
             if label == 'PERSON':
                 fmt = '  %-15s *%6.4f   %6.4f'
             else:
