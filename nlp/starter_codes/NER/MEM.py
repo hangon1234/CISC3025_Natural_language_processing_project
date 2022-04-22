@@ -61,20 +61,30 @@ class MEMM():
         if current_word.isupper():
             features['current_allcap'] = 1
 
+		# When whole word is lower case
         # if current_word.islower():
         #     features['current_lower'] = 1
 
         # Using NLTK Names corpus
         if current_word in NAMES:
             features["name"] = 1
-
+			
+		# Use NLTK Brown corpus
+        elif current_word not in BROWN:
+            features['brown_oov'] = 1		
+		
         # Previous word
         # if position > 0:
         #     features[f"prev_word_{words[position-1]}"] = 1
 
         # If camelcase
-        # if [x.isupper for x in current_word].count(True) > 1:
-        #     features["camel_case"] = 1
+        if [x.isupper for x in current_word].count(True) > 1:
+            features["camel_case"] = 1
+			
+		# If initial
+        if len(current_word) == 2:
+            if current_word[0].isupper() and current_word[1] == '.':
+                features["initial"] = 1
 
         # if contains hyphen
         # if '-' in current_word:
@@ -162,13 +172,23 @@ class MEMM():
         (m, n) = bound
         pdists = self.classifier.prob_classify_many(features[m:n])
 
-        print('  Words          P(PERSON)  P(O)\n' + '-' * 40)
-        for (word, label, pdist) in list(zip(words[m:n], labels[m:n], pdists)):
+        print('index    Words          P(PERSON)  P(O)\n' + '-' * 40)
+        for i, (word, label, pdist) in enumerate(list(zip(words[m:n], labels[m:n], pdists))):           
+            if pdist.prob("PERSON") > pdist.prob("O"):
+                if label != "PERSON":
+                    pass
+                    print(f"{i:07d} {word:15s} {pdist.prob('PERSON'):6.4f}    *{pdist.prob('O'):6.4f}")
+            else:
+                if label != "O":
+                    pass
+                    print(f"{i:07d} {word:15s} *{pdist.prob('PERSON'):6.4f}     {pdist.prob('O'):6.4f}")
+
+            """
             if label == 'PERSON':
                 fmt = '  %-15s *%6.4f   %6.4f'
             else:
                 fmt = '  %-15s  %6.4f  *%6.4f'
-            print(fmt % (word, pdist.prob('PERSON'), pdist.prob('O')))
+            print(fmt % (word, pdist.prob('PERSON'), pdist.prob('O'))) """
 
     def dump_model(self):
         with open('./starter_codes/model.pkl', 'wb') as f:
